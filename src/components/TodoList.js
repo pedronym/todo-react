@@ -9,14 +9,27 @@ class TodoList extends Component {
   }
 
   getTodos () {
-    if(this.props.todos.length > 0) {
+    if (this.props.todos.length > 0) {
       return this.props.todos.map((todo, idx) => {
         return <li key={idx} className="list-group-item todo-list-item">
-          {todo.text}
+          
+          <div className="todo-list-item-text col-sm-9">
+            <p>{todo.text}</p>
+          </div>
+
+          <a className="todo-list-item__toggle">
+            <i className="material-icons">delete</i>
+          </a>
+
+          <a className="todo-list-item__edit">
+            <i className="material-icons">edit</i>
+          </a>
         </li>;
       })
     } else {
-      return <p>Nothing to do</p>;
+      return <li className="list-group-item todo-list-item">
+        Nothing to do :(
+      </li>;
     }
   }
 
