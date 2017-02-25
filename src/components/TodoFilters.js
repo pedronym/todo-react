@@ -9,23 +9,19 @@ class TodoFilters extends Component {
       filters: ['Active', 'Completed', 'All'],
       activeFilter: 'Active'
     };
-
+    
     this.filterTodos = this.filterTodos.bind(this);
   }
 
   filterTodos (e, filter) {
     e.preventDefault();
-    this.setState = ({
+    this.setState({
       activeFilter: filter
     });
-   
-    this.forceUpdate();
-    console.log(this.state.activeFilter);
-  };
+  }
 
   getButtons () {
     return this.state.filters.map((filter) => {
-      console.log('comparing', filter, 'with', this.state.activeFilter);
       if (filter === this.state.activeFilter) {
         return <a href="" key={filter} onClick={(e) => this.filterTodos(e, filter)} className="active btn btn-secondary">
             {filter}
@@ -38,7 +34,7 @@ class TodoFilters extends Component {
     });
   }
 
-  render() {
+  render () {
     return (
       <section className="todo-filters col-sm-12 space-above">
         <div className="btn-group">
