@@ -3,6 +3,7 @@ Just a small exercise to grasp the basics of the react way of doing things.
 This project also uses bootstrap 4 (just the css) to give me a sane baseline of styles.
 
 ## File Structure
+
 ### App entry point:
 ```src/index.js```
 
