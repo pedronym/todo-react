@@ -1,5 +1,6 @@
 body {
-  background-color: #DEDEDE
+  background-color: dimgray;
+  color: #222222;
 }
 
 #root {
@@ -16,24 +17,41 @@ body {
 
 .todo-list-item {
   padding-left: 0;
+  padding-right: 0;
 }
 
 .todo-list-item p {
   margin-bottom: 0;
 }
 
-.todo-list-item__toggle, .todo-list-item__edit {
-  font-size: 0.8rem;
+.todo-list-item__options {
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+  justify-content: space-between;
 }
 
-.todo-list-item__toggle {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-}
-
+.todo-list-item__toggle, 
+.todo-list-item__delete, 
 .todo-list-item__edit {
-  position: absolute;
-  top: 1.5rem;
-  right: 0.5rem;
+  font-size: 0.8rem;  
+  color: dimgray;
+}
+
+.todo-list-item__toggle:visited,
+.todo-list-item__delete:visited,
+.todo-list-item__edit:visited {
+  color: dimgray;
+}
+
+.todo-list-item__toggle:active,
+.todo-list-item__delete:active,
+.todo-list-item__edit:active {
+  color: dimgray;
+}
+
+.todo-list-item__toggle:hover,
+.todo-list-item__delete:hover,
+.todo-list-item__edit:hover {
+  color: mediumslateblue;
 }

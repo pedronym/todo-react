@@ -26,7 +26,7 @@ class TodoInput extends Component {
     });
   }
 
-  render() {
+  render () {
     const fields = {
       placeholder: 'Add something to do'
     };

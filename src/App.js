@@ -13,21 +13,58 @@ class App extends Component {
     };
   }
 
-  add (e) {
+  addTodo (text) {
     this.state.todos.unshift({
-      text: e,
+      text: text,
       completed: false
     });
     this.forceUpdate();
+  }
+
+  filterTodos (filter) {
+    let filtered = [];
+
+    switch (filter) {
+      case 'All':
+        console.log('Showing -', filter);
+        filtered = this.state.todos;
+      break;
+      
+      case 'Active':
+        console.log('Showing -', filter);
+        filtered = this.state.todos.filter((todo) => !filter.completed);
+      break;
+      
+      case 'Completed':
+        console.log('Showing -', filter);
+        filtered = this.state.todos.filter((todo) => filter.completed);
+      break;
+
+      default:
+        console.log('No filter');
+      break;
+    }
+
+    this.setState({
+      todos: filtered
+    })
+  }
+
+  toggleTodo (completed) {
+    console.log('Toggling Todo');
+  }
+
+  deleteTodo (e) {
+    console.log('Deleting Todo', this.state.todos.indexOf(e.currentTarget));
   }
 
   render () {
     return (
     <div className="todo-app container">
       <div className="row">
-        <TodoInput add={this.add.bind(this)} />
-        <TodoList todos={this.state.todos} />
-        <TodoFilters />
+        <TodoInput add={this.addTodo.bind(this)} />
+        <TodoList deleteTodo={this.deleteTodo.bind(this)} toggleTodo={this.toggleTodo.bind(this)} todos={this.state.todos} />
+        <TodoFilters filter={this.filterTodos.bind(this)} />
       </div>
     </div>
     );

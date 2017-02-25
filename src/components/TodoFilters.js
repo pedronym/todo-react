@@ -15,6 +15,7 @@ class TodoFilters extends Component {
 
   filterTodos (e, filter) {
     e.preventDefault();
+    this.props.filter(filter);
     this.setState({
       activeFilter: filter
     });
