@@ -13,3 +13,27 @@ body {
 .todo-filters {
   text-align: center;
 }
+
+.todo-list-item {
+  padding-left: 0;
+}
+
+.todo-list-item p {
+  margin-bottom: 0;
+}
+
+.todo-list-item__toggle, .todo-list-item__edit {
+  font-size: 0.8rem;
+}
+
+.todo-list-item__toggle {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.todo-list-item__edit {
+  position: absolute;
+  top: 1.5rem;
+  right: 0.5rem;
+}
