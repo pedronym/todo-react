@@ -1,78 +1,40 @@
 import React, { Component } from 'react';
+import TodoListItem from './TodoListItem';
 
 class TodoList extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.state = {
-      todos: this.props.todos || []
-    }
 
-    this.toggleTodo = this.toggleTodo.bind(this);
-    this.editTodo = this.editTodo.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this);
+    this.renderTodos = this.renderTodos.bind(this);
+    this.renderEmpty = this.renderEmpty.bind(this);
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({ 
-      todos: nextProps.todos
-    });
-  }
-
-  editTodo (e, todo) {
-    e.preventDefault();
-  }
-
-  toggleTodo (e, todo) {
-    e.preventDefault();
-    this.props.toggleTodo(todo);
-  }
-
-  deleteTodo(e, todo) {
-    e.preventDefault();
-    this.props.deleteTodo(e);
-  }
-
-  getTodos () {
+  renderTodos () {    
     if (this.props.todos.length > 0) {
       return this.props.todos.map((todo, idx) => {
-        return <li key={idx} className="list-group-item todo-list-item">
-          
-          <div className="todo-list-item-text col-sm-9">
-            <p>{todo.text}</p>
-          </div>
-          
-          <aside className="todo-list-item__options col-sm-3">
-            <a className="todo-list-item__toggle" href="" onClick={(e) => this.toggleTodo(e, this)}>
-              <i className="material-icons">check</i>
-            </a>
-
-            <a className="todo-list-item__delete" href="" onClick={(e) => this.deleteTodo(e, this)}>
-              <i className="material-icons">delete</i>
-            </a>
-
-            <a className="todo-list-item__edit" href="" onClick={(e) => this.editTodo(e, this)}>
-              <i className="material-icons">edit</i>
-            </a>
-          </aside>
-          
-        </li>;
+        return <TodoListItem key={idx} todo={todo} editTodo={this.props.editTodo} deleteTodo={this.props.deleteTodo} toggleTodo={this.props.toggleTodo} idx={idx} />;
       })
     } else {
-      return <li className="list-group-item todo-list-item">
-        <div className="todo-list-item-text col-sm-9">
-          <p>Nothing to do :(</p>
-        </div>
-      </li>;
+      this.renderEmpty();
     }
+  }
+
+  renderEmpty() {
+    return (
+      <div className="card">
+        <div className="card-block">
+          <h4 className="card-title">Nothing to do :(</h4>
+        </div>
+      </div>
+    );
   }
 
   render() {
-
     return (
       <section className="todo-list col-sm-12 space-above">
         <ul className="list-group">
-          {this.getTodos()}
+          {this.renderTodos()}
         </ul>
       </section>
     );

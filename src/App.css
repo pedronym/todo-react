@@ -20,6 +20,10 @@ body {
   padding-right: 0;
 }
 
+.todo-list-item-text {
+  margin-bottom: 1rem;
+}
+
 .todo-list-item p {
   margin-bottom: 0;
 }
@@ -54,4 +58,13 @@ body {
 .todo-list-item__delete:hover,
 .todo-list-item__edit:hover {
   color: mediumslateblue;
+}
+
+.todo-list-item__completed {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.hidden {
+  display: none;
 }

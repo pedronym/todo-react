@@ -14,10 +14,13 @@ class TodoInput extends Component {
 
   addTodo (e) {
     e.preventDefault();
-    this.props.add(this.state.text);
-    this.setState({
-      text: ''
-    });
+    
+    if (this.state.text.length > 0) {
+      this.props.add(this.state.text);
+      this.setState({
+        text: ''
+      });
+    }
   }
 
   onInputChange (e) {

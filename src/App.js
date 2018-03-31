@@ -8,65 +8,102 @@ class App extends Component {
   
   constructor (props) {
     super(props);
+
+    this.addTodo = this.addTodo.bind(this);
+    this.toggleTodo = this.toggleTodo.bind(this);
+    this.editTodo = this.editTodo.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
+    this.filterTodos = this.filterTodos.bind(this);
+    this.getTodos = this.getTodos.bind(this);
+
     this.state = {
-      todos: []
+      all: [],
+      filter: 'All'
     };
   }
 
+  /*
+    @method
+    ADD TODO
+  */
+
   addTodo (text) {
-    this.state.todos.unshift({
-      text: text,
-      completed: false
+    this.setState({
+      all: this.state.all.concat([{
+        text: text,
+        completed: false
+      }])
     });
+  }
+
+  /*
+    @method
+    FILTER TODOS
+  */
+
+  filterTodos (filter) {
+    this.setState({
+      filter
+    });
+  }
+
+  /*
+    @method
+    EDIT TODO
+  */
+
+  editTodo (todo, newText) {
+    todo.text = newText;
     this.forceUpdate();
   }
 
-  filterTodos (filter) {
-    let filtered = [];
+  /*
+    @method
+    TOGGLE TODO
+  */
 
-    switch (filter) {
-      case 'All':
-        console.log('Showing -', filter);
-        filtered = this.state.todos;
-      break;
-      
-      case 'Active':
-        console.log('Showing -', filter);
-        filtered = this.state.todos.filter((todo) => !filter.completed);
-      break;
-      
-      case 'Completed':
-        console.log('Showing -', filter);
-        filtered = this.state.todos.filter((todo) => filter.completed);
-      break;
+  toggleTodo (todo) {
+    todo.completed = !todo.completed;
+    this.forceUpdate();
+  }
 
-      default:
-        console.log('No filter');
-      break;
-    }
+  /*
+    @method
+    DELETE TODO
+  */
 
+  deleteTodo (todoIdx) {
     this.setState({
-      todos: filtered
+      all: this.state.all.filter((todo, idx) => idx !== todoIdx)
     })
   }
 
-  toggleTodo (completed) {
-    console.log('Toggling Todo');
+  getTodos() {
+    if (this.state.filter === 'Active') {
+      return this.state.all.filter((todo) => !todo.completed);
+    } else if (this.state.filter === 'Completed') {
+      return this.state.all.filter((todo) => todo.completed)
+    } else {
+      return this.state.all.sort((a, b) => a.completed);
+    }
   }
 
-  deleteTodo (e) {
-    console.log('Deleting Todo', this.state.todos.indexOf(e.currentTarget));
-  }
+  /*
+    @method
+    RENDER
+  */
 
   render () {
+    let todos = this.getTodos();
+
     return (
-    <div className="todo-app container">
-      <div className="row">
-        <TodoInput add={this.addTodo.bind(this)} />
-        <TodoList deleteTodo={this.deleteTodo.bind(this)} toggleTodo={this.toggleTodo.bind(this)} todos={this.state.todos} />
-        <TodoFilters filter={this.filterTodos.bind(this)} />
+      <div className="todo-app container">
+        <div className="row">
+          <TodoInput add={this.addTodo} />
+          <TodoList editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} todos={todos} />
+          <TodoFilters filterTodos={this.filterTodos} filter={this.state.filter} />
+        </div>
       </div>
-    </div>
     );
   }
 }

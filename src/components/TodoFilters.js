@@ -6,8 +6,7 @@ class TodoFilters extends Component {
     super(props);
 
     this.state = {
-      filters: ['Active', 'Completed', 'All'],
-      activeFilter: 'Active'
+      filters: ['All', 'Active', 'Completed']
     };
     
     this.filterTodos = this.filterTodos.bind(this);
@@ -15,23 +14,18 @@ class TodoFilters extends Component {
 
   filterTodos (e, filter) {
     e.preventDefault();
-    this.props.filter(filter);
-    this.setState({
-      activeFilter: filter
-    });
+    this.props.filterTodos(filter);
   }
 
   getButtons () {
     return this.state.filters.map((filter) => {
-      if (filter === this.state.activeFilter) {
-        return <a href="" key={filter} onClick={(e) => this.filterTodos(e, filter)} className="active btn btn-secondary">
+      const isActive = filter === this.props.filter ? 'active btn-success' : 'btn-secondary';
+      
+      return (
+        <a href="" key={filter} onClick={(e) => this.filterTodos(e, filter)} className={`btn ${isActive}`}>
             {filter}
-          </a>;
-      } else {
-        return <a href="" key={filter} onClick={(e) => this.filterTodos(e, filter)} className="btn btn-secondary">
-            {filter}
-          </a>;
-      }
+        </a>
+      )
     });
   }
 
