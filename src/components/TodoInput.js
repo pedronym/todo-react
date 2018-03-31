@@ -36,10 +36,9 @@ class TodoInput extends Component {
 
     return (
       <header className="todo-input col-sm-12">
-          <form onSubmit={this.addTodo} className="input-group">
-            <input value={this.state.text} type="text" onChange={this.onInputChange} className="form-control" placeholder={fields.placeholder} aria-describedby="basic-addon1" />
-            <span className="input-group-addon" id="basic-addon1">+</span>
-          </form>
+        <form onSubmit={this.addTodo} className="input-group input-group-lg">
+          <input value={this.state.text} type="text" onChange={this.onInputChange} className="form-control" placeholder={fields.placeholder} />
+        </form>
       </header>
     );
   }

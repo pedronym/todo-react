@@ -1,6 +1,7 @@
+html,
 body {
-  background-color: dimgray;
-  color: #222222;
+  font-family: 'Open Sans', sans-serif !important;
+  background-color: darkslategrey;
 }
 
 #root {
@@ -35,10 +36,10 @@ body {
   justify-content: space-between;
 }
 
-.todo-list-item__toggle, 
-.todo-list-item__delete, 
+.todo-list-item__toggle,
+.todo-list-item__delete,
 .todo-list-item__edit {
-  font-size: 0.8rem;  
+  font-size: 0.8rem;
   color: dimgray;
 }
 
