@@ -1,7 +1,8 @@
 html,
 body {
+  color: white;
   font-family: 'Open Sans', sans-serif !important;
-  background-color: darkslategrey;
+  background-color: rgb(32, 35, 36);
 }
 
 #root {

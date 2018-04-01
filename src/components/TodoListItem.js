@@ -7,15 +7,14 @@ class TodoListItem extends Component {
 
     this.state = {
       text: '',
-      editing: false,
-      completed: this.props.todo.completed
+      editing: false
     };
 
-    this.onEditFinish = this.onEditFinish.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
     this.editTodo = this.editTodo.bind(this);
     this.toggleTodo = this.toggleTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
+    this.onEditFinish = this.onEditFinish.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
   editTodo(e, idx) {

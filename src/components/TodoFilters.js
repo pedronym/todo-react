@@ -22,7 +22,7 @@ class TodoFilters extends Component {
       const isActive = filter === this.props.filter ? 'active btn-light' : 'btn-secondary';
       
       return (
-        <a href="" key={filter} onClick={(e) => this.filterTodos(e, filter)} className={`btn ${isActive}`}>
+        <a href="" key={filter} onClick={(e) => this.filterTodos(e, filter)} className={`btn btn-sm ${isActive}`}>
             {filter}
         </a>
       )

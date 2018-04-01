@@ -4,12 +4,13 @@ class TodoInput extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { 
-      text: '' 
-    };
 
     this.addTodo = this.addTodo.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    
+    this.state = { 
+      text: '' 
+    };
   }
 
   addTodo (e) {
