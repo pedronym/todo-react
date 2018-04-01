@@ -1,6 +1,9 @@
 /* Imports */
 import React, { Component } from 'react';
 
+/* Data */
+import Storage from './components/Storage';
+
 /* Components */
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
@@ -30,9 +33,18 @@ class App extends Component {
 
     /* Initial State */
     this.state = {
-      all: [],
+      all: Storage.getTodos(),
       filter: 'All'
     };
+  }
+
+  /*
+    @lifecycle method
+    COMPONENT DID UPDATE
+  */
+
+  componentDidUpdate() {
+    Storage.saveTodos(this.state.all);
   }
 
   /*
