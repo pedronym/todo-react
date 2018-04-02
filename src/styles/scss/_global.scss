@@ -1,0 +1,51 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  color: $light;
+  background-color: $background;
+  overflow: scroll;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.todo-input {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  width: 100%;
+}
+
+.todo-list {
+  margin-top: 5rem;
+  padding: 0 $margin-sm;
+}
+
+.todo-list-item-text {
+  margin-bottom: $margin-sm;
+}
+
+.todo-filters {
+  margin-top: $margin-sm;
+}
+
+.todo-list-item__completed {
+  opacity: 0.8;
+  text-decoration: line-through;
+}
+
+.copyright {
+  margin-top: $margin-lg;
+  text-align: center;
+
+  p {
+    margin-bottom: $margin-sm;
+  }
+}

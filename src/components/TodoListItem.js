@@ -1,36 +1,65 @@
+/* Imports */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class TodoListItem extends Component {
 
-  constructor (props) {
+  /*
+    @lifecycle method
+    CONSTRUCTOR
+  */
+
+  constructor(props) {
     super(props);
 
-    this.state = {
-      text: '',
-      editing: false
-    };
-
+    /* Component Methods */
     this.editTodo = this.editTodo.bind(this);
     this.toggleTodo = this.toggleTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.onEditFinish = this.onEditFinish.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+
+    /* Initial State */
+    this.state = {
+      text: '',
+      editing: false
+    };
   }
 
-  editTodo(e, idx) {
+  /*
+    @custom method
+    EDIT TODO
+  */
+
+  editTodo(e) {
     e.preventDefault();
     this.setState({ editing: !this.state.editing });
   }
 
-  toggleTodo(e, idx) {
+  /*
+    @custom method
+    TOGGLE TODO
+  */
+
+  toggleTodo(e) {
     e.preventDefault();
     this.props.toggleTodo(this.props.todo);
   }
+  
+  /*
+    @custom method
+    DELETE TODO
+  */
 
   deleteTodo(e, idx) {
     e.preventDefault();
     this.props.deleteTodo(idx);
   }
+
+  /*
+    @custom method
+    ON EDIT FINISH
+  */
 
   onEditFinish(e) {
     e.preventDefault();
@@ -41,42 +70,65 @@ class TodoListItem extends Component {
     });
   }
 
-  onInputChange (e) {
+  /*
+    @custom method
+    ON INPUT CHANGE
+  */
+
+  onInputChange(e) {
     this.setState({
       text: e.target.value
     });
   }
 
-  render () {
+  /*
+    @lifecycle method
+    RENDER
+  */
+
+  render() {
     return (
-    <li key={this.props.idx} className={`list-group-item todo-list-item ${this.props.todo.completed ? 'todo-list-item__completed' : ''}`}>
-      <div className="todo-list-item-text col-sm-9">
-        <p className={`${this.state.editing ? 'hidden' : ''}`} onClick={this.editTodo}>{this.props.todo.text}</p>
-        <form onSubmit={this.onEditFinish}>
-          <input 
-            type="text" 
-            value={this.state.text} 
-            placeholder={this.props.todo.text} 
-            onChange={this.onInputChange} 
-            className={`form-control ${this.state.editing ? '' : 'hidden'}`} />
-        </form>
+      <div key={this.props.idx} className={`box todo-list-item is-clearfix ${this.props.todo.completed ? 'todo-list-item__completed' : ''}`}>
+        <div className="todo-list-item-text">
+          <p className={`is-size-5 ${this.state.editing ? 'is-hidden' : ''}`} onClick={this.editTodo}>{this.props.todo.text}</p>
+          <form onSubmit={this.onEditFinish}>
+            <input 
+              type="text" 
+              value={this.state.text} 
+              placeholder={this.props.todo.text} 
+              onChange={this.onInputChange} 
+              className={`input ${this.state.editing ? '' : 'is-hidden'}`} />
+          </form>
+        </div>
+
+        <aside className="todo-list-item__options columns is-mobile is-pulled-right">
+          <a className="todo-list-item__toggle column is-narrow" href="" onClick={(e) => this.toggleTodo(e)}>
+            <i className="material-icons">check</i>
+          </a>
+
+          <a className="todo-list-item__edit column is-narrow" href="" onClick={(e) => this.editTodo(e)}>
+            <i className="material-icons">edit</i>
+          </a>
+          
+          <a className="todo-list-item__delete column is-narrow" href="" onClick={(e) => this.deleteTodo(e, this.props.idx)}>
+            <i className="material-icons">delete</i>
+          </a>
+        </aside>      
       </div>
-
-      <aside className="todo-list-item__options col-sm-3">
-        <a className="todo-list-item__toggle" href="" onClick={(e) => this.toggleTodo(e, this.props.idx)}>
-          <i className="material-icons">check</i>
-        </a>
-
-        <a className="todo-list-item__edit" href="" onClick={(e) => this.editTodo(e, this.props.idx)}>
-          <i className="material-icons">edit</i>
-        </a>
-        
-        <a className="todo-list-item__delete" href="" onClick={(e) => this.deleteTodo(e, this.props.idx)}>
-          <i className="material-icons">delete</i>
-        </a>
-      </aside>      
-    </li>)
+    );
   }
 }
+
+/*
+  @proptypes
+*/
+
+TodoListItem.propTypes = {
+  todo: PropTypes.shape({
+    text: PropTypes.string,
+    completed: PropTypes.bool
+  }),
+  editTodo: PropTypes.func.isRequired
+};
 
 export default TodoListItem;

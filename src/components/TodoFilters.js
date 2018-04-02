@@ -1,43 +1,79 @@
+/* Imports */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class TodoFilters extends Component {
-  
+
+  /*
+    @lifecycle method
+    CONSTRUCTOR
+  */
+
   constructor(props) {
     super(props);
+
+    this.filterTodos = this.filterTodos.bind(this);
 
     this.state = {
       filters: ['All', 'Active', 'Completed']
     };
-    
-    this.filterTodos = this.filterTodos.bind(this);
   }
 
-  filterTodos (e, filter) {
+  /*
+    @custom method
+    FILTER TODOS
+  */
+
+  filterTodos(e, filter) {
     e.preventDefault();
     this.props.filterTodos(filter);
   }
 
-  getButtons () {
-    return this.state.filters.map((filter) => {
-      const isActive = filter === this.props.filter ? 'active btn-light' : 'btn-secondary';
-      
-      return (
-        <a href="" key={filter} onClick={(e) => this.filterTodos(e, filter)} className={`btn btn-sm ${isActive}`}>
-            {filter}
-        </a>
-      )
-    });
+  /*
+    @custom method
+    GET BUTTONS
+  */
+
+  getButtons() {
+    if (this.props.visible) {
+      return this.state.filters.map((filter) => {
+        const isActive = filter === this.props.filter ? 'active is-light' : 'is-dark';
+        
+        return(
+          <div key={filter} className='column is-narrow'>
+            <button onClick={(e) => this.filterTodos(e, filter)} className={`button ${isActive}`}>
+              {filter}
+            </button>
+          </div>
+        );
+      });
+    } else {
+      return false;
+    }
   }
 
-  render () {
+  /*
+    @lifecycle method
+    RENDER
+  */
+
+  render() {
     return (
-      <section className="todo-filters col-sm-12 space-above">
-        <div className="btn-group">
-          {this.getButtons()}
-        </div>
+      <section className="todo-filters columns is-mobile is-centered">
+        {this.getButtons()}
       </section>
     );
   }
 }
+
+/*
+  @proptypes
+*/
+
+TodoFilters.propTypes = {
+  visible: PropTypes.bool,
+  filter: PropTypes.string,
+  filterTodos: PropTypes.func.isRequired
+};
 
 export default TodoFilters;

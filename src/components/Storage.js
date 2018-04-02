@@ -12,6 +12,6 @@ const Storage = {
     window.localStorage[STORAGE_KEY] = JSON.stringify(todos);
   }
 
-}
+};
 
 export default Storage;

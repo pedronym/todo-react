@@ -11,7 +11,7 @@ import TodoFilters from './components/TodoFilters';
 import Footer from './components/Footer';
 
 /* Styles */
-import './App.css';
+import './styles/css/app.css';
 
 class App extends Component {
 
@@ -20,7 +20,7 @@ class App extends Component {
     CONSTRUCTOR
   */
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     /* Component Methods */
@@ -53,12 +53,12 @@ class App extends Component {
     Accepts the text from TodoInput and creates a new todo Object
   */
 
-  addTodo (text) {
+  addTodo(text) {
     this.setState({
-      all: this.state.all.concat([{
+      all: [{
         text: text,
         completed: false
-      }])
+      }].concat(this.state.all)
     });
   }
 
@@ -68,7 +68,7 @@ class App extends Component {
     Accepts a filter string value and sets the filter state
   */
 
-  filterTodos (filter) {
+  filterTodos(filter) {
     this.setState({
       filter
     });
@@ -80,7 +80,7 @@ class App extends Component {
     Accepts the todo Object and sets the new text on it. We force a rerender after this change.
   */
 
-  editTodo (todo, newText) {
+  editTodo(todo, newText) {
     todo.text = newText;
     this.forceUpdate();
   }
@@ -91,7 +91,7 @@ class App extends Component {
     Accepts the todo Object and sets the completed property on it. Also forces a rerender.
   */
 
-  toggleTodo (todo) {
+  toggleTodo(todo) {
     todo.completed = !todo.completed;
     this.forceUpdate();
   }
@@ -102,10 +102,10 @@ class App extends Component {
     Accepts the todo idx and filters the todos to remove that array element.
   */
 
-  deleteTodo (todoIdx) {
+  deleteTodo(todoIdx) {
     this.setState({
       all: this.state.all.filter((todo, idx) => idx !== todoIdx)
-    })
+    });
   }
 
   /*
@@ -119,9 +119,9 @@ class App extends Component {
     if (filter === 'Active') {
       return all.filter((todo) => !todo.completed);
     } else if (this.state.filter === 'Completed') {
-      return all.filter((todo) => todo.completed)
+      return all.filter((todo) => todo.completed);
     } else {
-      return all.sort((a, b) => a.completed);
+      return all.sort((a) => a.completed);
     }
   }
 
@@ -130,18 +130,14 @@ class App extends Component {
     RENDER
   */
 
-  render () {
+  render() {
     let todos = this.getTodos();
 
     return (
       <div className="todo-app container">
-
-        <div className="row">
-          <TodoInput add={this.addTodo} />
-          <TodoList editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} todos={todos} />
-          <TodoFilters filterTodos={this.filterTodos} filter={this.state.filter} />
-        </div>
-
+        <TodoInput addTodo={this.addTodo} />
+        <TodoList editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} todos={todos} />
+        <TodoFilters visible={todos.length > 0} filterTodos={this.filterTodos} filter={this.state.filter} />
         <Footer />
       </div>
     );
