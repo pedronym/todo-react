@@ -1,6 +1,10 @@
 # Todo App - React
 Just a small exercise to grasp the basics of the react way of doing things.
-This project also uses bootstrap 4 (just the css) to give me a sane baseline of styles.
+This project also uses Bulma to give me a sane baseline of styles although it has some minor custom SCSS.
+
+## How to run
+npm start for development with webpack livereload
+npm build to generate a production ready version
 
 ## File Structure
 
@@ -25,6 +29,14 @@ components/TodoFilters
 
 Changes the visibility of the todos. The available filters are 'All', 'Active' and 'Completed'
 
-## How to run
-npm start for development with webpack livereload
-npm build to generate a production ready version
+### Storage
+components/Storage
+
+Uses LocalStorage to save and get the todos
+
+######
+Still some features I would like to add:
+- CSS and component transitions
+- Draggable TodoListItem instances
+- Add Due Date option to TodoListItem instances
+- Add Todo sort by date
