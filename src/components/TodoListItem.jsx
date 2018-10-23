@@ -43,7 +43,8 @@ class TodoListItem extends Component {
 
   toggleTodo(e) {
     e.preventDefault();
-    this.props.toggleTodo(this.props.todo);
+    const { idx } = this.props;
+    this.props.toggleTodo(idx);
   }
   
   /*
@@ -51,8 +52,9 @@ class TodoListItem extends Component {
     DELETE TODO
   */
 
-  deleteTodo(e, idx) {
+  deleteTodo(e) {
     e.preventDefault();
+    const { idx } = this.props;
     this.props.deleteTodo(idx);
   }
 
@@ -63,7 +65,8 @@ class TodoListItem extends Component {
 
   onEditFinish(e) {
     e.preventDefault();
-    this.props.editTodo(this.props.todo, this.state.text);
+    const { idx } = this.props;
+    this.props.editTodo(idx, this.state.text);
 
     this.setState({
       editing: false
@@ -102,15 +105,15 @@ class TodoListItem extends Component {
         </div>
 
         <aside className="todo-list-item__options columns is-mobile is-pulled-right">
-          <a className="todo-list-item__toggle column is-narrow" href="" onClick={(e) => this.toggleTodo(e)}>
+          <a className="todo-list-item__toggle column is-narrow" href="" onClick={this.toggleTodo}>
             <i className="material-icons">check</i>
           </a>
 
-          <a className="todo-list-item__edit column is-narrow" href="" onClick={(e) => this.editTodo(e)}>
+          <a className="todo-list-item__edit column is-narrow" href="" onClick={this.editTodo}>
             <i className="material-icons">edit</i>
           </a>
           
-          <a className="todo-list-item__delete column is-narrow" href="" onClick={(e) => this.deleteTodo(e, this.props.idx)}>
+          <a className="todo-list-item__delete column is-narrow" href="" onClick={this.deleteTodo}>
             <i className="material-icons">delete</i>
           </a>
         </aside>      

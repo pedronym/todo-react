@@ -60,7 +60,7 @@ class TodoInput extends Component {
                 value={this.state.text} 
                 type="text" 
                 onChange={this.onInputChange} 
-                className="input is-large" 
+                className="input is-medium" 
                 placeholder="Add something to do"
               />
               

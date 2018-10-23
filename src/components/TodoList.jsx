@@ -1,6 +1,7 @@
 /* Imports */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Transition, animated } from 'react-spring';
 
 /* Components */
 import TodoListItem from './TodoListItem';
@@ -27,10 +28,35 @@ class TodoList extends Component {
   */
 
   renderTodos() {
-    if (this.props.todos.length > 0) {
-      return this.props.todos.map((todo, idx) => {
-        return <TodoListItem key={idx} todo={todo} editTodo={this.props.editTodo} deleteTodo={this.props.deleteTodo} toggleTodo={this.props.toggleTodo} idx={idx} />;
-      });
+    const { todos, editTodo, deleteTodo, toggleTodo } = this.props;
+
+    if (todos.length > 0) {
+      return (
+        <Transition
+          native
+          keys={todos.map(todo => todo.id)}
+          from={{ opacity:0, height: 0 }}  
+          enter={{ opacity: 1, height: 'auto' }}
+          leave={{ opacity: 0, height: 0, pointerEvents: 'none' }}>
+
+          {todos.map(todo => styles => {
+            
+            return (
+              <animated.div style={styles}>
+                <TodoListItem 
+                  key={todo.id} 
+                  todo={todo} 
+                  editTodo={editTodo} 
+                  deleteTodo={deleteTodo} 
+                  toggleTodo={toggleTodo} 
+                  idx={todo.id} 
+                />
+              </animated.div>
+            );
+
+          })}
+        </Transition>
+      );
     } else {
       return this.renderEmpty();
     }
@@ -58,7 +84,7 @@ class TodoList extends Component {
 
   render() {
     return (
-      <section className="todo-list container">
+      <section className="todo-list">
         {this.renderTodos()}
       </section>
     );

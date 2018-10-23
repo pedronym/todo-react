@@ -1,15 +1,48 @@
 html, body {
   width: 100%;
   height: 100%;
-  color: $light;
-  background-color: $background;
-  overflow: scroll;
+  color: $dark;
+  background-color: $light;
+  overflow: auto;
+
+  background-color: #e1e2e1;
+  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c7c9c7' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.input {
+  border: none;
+
+  &:focus {
+    border: none;
+    box-shadow: $shadow-small;
+  }
+}
+
+.button, .input {
+  box-shadow: $shadow-small;
+}
+
+.button {
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    box-shadow: $shadow-small;
+  }
 }
 
 #root {
+  margin: 0 auto;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
+  max-width: 760px;
+
+  @include tablet {
+    padding-top: 2rem;
+  }
 }
 
 .is-hidden {
@@ -17,15 +50,40 @@ html, body {
 }
 
 .todo-input {
-  position: fixed;
+  position: sticky;
   z-index: 10;
   top: 0;
   width: 100%;
+  transform: translateY(-10px);
+
+  @include tablet {
+    padding: 0 $margin-sm;
+  }
+
+  // &:after {
+  //   content: '';
+  //   width: 2px;
+  //   height: 40px;
+  //   background-color: $light;
+  //   position: absolute;
+  //   bottom: 0px;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   z-index: -1;
+  // }
 }
 
 .todo-list {
-  margin-top: 5rem;
+  position: relative;
+  margin-top: 1rem;
   padding: 0 $margin-sm;
+}
+
+.todo-list-item {
+  z-index: 10;
+  transition: opacity 0.3s ease-in;
+  overflow: hidden;
+  margin-bottom: $margin-sm;
 }
 
 .todo-list-item-text {
@@ -42,10 +100,19 @@ html, body {
 }
 
 .copyright {
-  margin-top: $margin-lg;
+  margin: $margin-lg auto 0px auto;
   text-align: center;
 
   p {
     margin-bottom: $margin-sm;
+  }
+}
+
+i {
+  transition: color 0.2s ease-in;
+  color: $light;
+
+  &:hover {
+    color: $primary;
   }
 }

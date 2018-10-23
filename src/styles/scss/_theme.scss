@@ -1,9 +1,11 @@
-$family-sans: "Open Sans", "Helvetica", sans-serif;
+$family-sans: "Source Sans Pro", "Helvetica", sans-serif;
 $family-primary: $family-sans;
 
-$background: #363636;
-$dark: #545C52;
-$light: #BFEDEF;
-$primary: #98E2C6;
+$shadow-small: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+
+$background: #E1E2E1;
+$dark: #212121;
+$light: darken($background, 15%);
+$primary: #009688;
 $link: $primary;
-$secondary: #BBC7CE;
+$secondary: #00796B;

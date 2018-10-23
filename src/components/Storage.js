@@ -4,7 +4,7 @@ const Storage = {
   
   getTodos() {
     const ls = window.localStorage[STORAGE_KEY];
-    const todos = (ls === 'undefined') ? '[]' : ls;
+    const todos = ls || '[]';    
     return JSON.parse(todos);
   },
 

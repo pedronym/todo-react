@@ -1,10 +1,11 @@
 /* Imports */
 import React, { Component } from 'react';
-
+import { Transition, Spring, animated } from 'react-spring';
 /* Data */
 import Storage from './components/Storage';
 
 /* Components */
+import Info from './components/Info';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 import TodoFilters from './components/TodoFilters';
@@ -12,6 +13,19 @@ import Footer from './components/Footer';
 
 /* Styles */
 import './styles/css/app.css';
+
+
+const defaultTodo = () => {
+  return {
+    text: '',
+    completed: false,
+    id: Date.now()
+  };
+};
+
+const createTodo = todo => {
+  return { ...defaultTodo(), ...todo };
+};
 
 class App extends Component {
 
@@ -24,6 +38,7 @@ class App extends Component {
     super(props);
 
     /* Component Methods */
+    this.showInfo = this.showInfo.bind(this);
     this.getTodos = this.getTodos.bind(this);
     this.addTodo = this.addTodo.bind(this);
     this.toggleTodo = this.toggleTodo.bind(this);
@@ -34,7 +49,8 @@ class App extends Component {
     /* Initial State */
     this.state = {
       all: Storage.getTodos(),
-      filter: 'All'
+      filter: 'All',
+      showInfo: false
     };
   }
 
@@ -47,6 +63,10 @@ class App extends Component {
     Storage.saveTodos(this.state.all);
   }
 
+  showInfo() {
+    this.setState(prevState => ({ showInfo: !prevState.showInfo }));
+  }
+
   /*
     @custom method
     ADD TODO
@@ -55,10 +75,7 @@ class App extends Component {
 
   addTodo(text) {
     this.setState({
-      all: [{
-        text: text,
-        completed: false
-      }].concat(this.state.all)
+      all: [createTodo({ text })].concat(this.state.all)
     });
   }
 
@@ -69,9 +86,7 @@ class App extends Component {
   */
 
   filterTodos(filter) {
-    this.setState({
-      filter
-    });
+    this.setState({ filter });
   }
 
   /*
@@ -80,9 +95,16 @@ class App extends Component {
     Accepts the todo Object and sets the new text on it. We force a rerender after this change.
   */
 
-  editTodo(todo, newText) {
-    todo.text = newText;
-    this.forceUpdate();
+  editTodo(todoId, text) {
+    const todos = [ ...this.state.all ];
+    const todo = todos.find(todo => todo.id === todoId);
+    const index = todos.indexOf(todo);
+    const { id, completed } = todo;
+
+    todos.splice(index, 1);
+    todos.splice(index, 0, createTodo({ text, id, completed }));
+
+    this.setState({ all: todos });
   }
 
   /*
@@ -91,9 +113,16 @@ class App extends Component {
     Accepts the todo Object and sets the completed property on it. Also forces a rerender.
   */
 
-  toggleTodo(todo) {
-    todo.completed = !todo.completed;
-    this.forceUpdate();
+  toggleTodo(todoId) {
+    const todos = [ ...this.state.all ];
+    const todo = todos.find(todo => todo.id === todoId);
+    const { id, text, completed } = todo;
+    
+    todos.splice(todos.indexOf(todo), 1);
+
+    this.setState({
+      all: todos.concat(createTodo({ text, id, completed: !completed }))
+    });
   }
 
   /*
@@ -102,9 +131,9 @@ class App extends Component {
     Accepts the todo idx and filters the todos to remove that array element.
   */
 
-  deleteTodo(todoIdx) {
+  deleteTodo(todoId) {
     this.setState({
-      all: this.state.all.filter((todo, idx) => idx !== todoIdx)
+      all: this.state.all.filter(todo => todo.id !== todoId)
     });
   }
 
@@ -117,11 +146,11 @@ class App extends Component {
     const { all, filter } = this.state;
 
     if (filter === 'Active') {
-      return all.filter((todo) => !todo.completed);
+      return all.filter(todo => !todo.completed);
     } else if (this.state.filter === 'Completed') {
-      return all.filter((todo) => todo.completed);
+      return all.filter(todo => todo.completed);
     } else {
-      return all.sort((a) => a.completed);
+      return all.sort(a => a.completed);
     }
   }
 
@@ -134,11 +163,29 @@ class App extends Component {
     let todos = this.getTodos();
 
     return (
-      <div className="todo-app container">
+      <div className="todo-app">
+
+        {this.props.showInfo && 
+          <Info />
+        }
+
         <TodoInput addTodo={this.addTodo} />
-        <TodoList editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} todos={todos} />
-        <TodoFilters visible={todos.length > 0} filterTodos={this.filterTodos} filter={this.state.filter} />
-        <Footer />
+
+        <TodoList 
+          editTodo={this.editTodo} 
+          deleteTodo={this.deleteTodo} 
+          toggleTodo={this.toggleTodo} 
+          todos={todos} 
+        />
+
+        <TodoFilters 
+          visible={true} 
+          filterTodos={this.filterTodos} 
+          filter={this.state.filter} 
+        />
+
+        <Footer showInfo={this.showInfo} />
+        
       </div>
     );
   }

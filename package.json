@@ -1,6 +1,8 @@
 {
   "name": "todo-react",
-  "version": "0.1.0",
+  "description": "Todo App build using React and local storage.",
+  "author": "Pedro Lima © 2018 | www.pmlima.com",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "eslint": "^4.19.1",
@@ -12,9 +14,10 @@
   "dependencies": {
     "bulma": "^0.6.2",
     "prop-types": "^15.6.1",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-motion": "^0.5.2"
+    "react": "16.5.2",
+    "react-dom": "16.5.2",
+    "react-motion": "^0.5.2",
+    "react-spring": "^5.9.2"
   },
   "scripts": {
     "start-js": "react-scripts start",

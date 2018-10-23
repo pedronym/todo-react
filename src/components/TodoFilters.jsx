@@ -37,11 +37,11 @@ class TodoFilters extends Component {
   getButtons() {
     if (this.props.visible) {
       return this.state.filters.map((filter) => {
-        const isActive = filter === this.props.filter ? 'active is-light' : 'is-dark';
+        const isActive = filter === this.props.filter ? 'active is-primary' : 'is-white';
         
         return(
           <div key={filter} className='column is-narrow'>
-            <button onClick={(e) => this.filterTodos(e, filter)} className={`button ${isActive}`}>
+            <button onClick={e => this.filterTodos(e, filter)} className={`button ${isActive}`}>
               {filter}
             </button>
           </div>
